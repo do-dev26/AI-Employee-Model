@@ -1,0 +1,58 @@
+/* app/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold:       #C8A96E;
+  --gold-dim:   #8B6914;
+  --gold-dark:  #1C1408;
+  --bg:         #080808;
+  --bg-1:       #0A0A0A;
+  --bg-2:       #111111;
+  --bg-3:       #181818;
+  --border:     #1E1E1E;
+  --border-gold:#2A2218;
+  --text:       #E8DCC8;
+  --text-dim:   #888888;
+  --text-muted: #444444;
+  --green:      #4DC87A;
+  --red:        #FF4D4D;
+  --blue:       #4D90C8;
+  --purple:     #A64DC8;
+  --orange:     #FF8C42;
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar       { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: #0f0f0f; }
+::-webkit-scrollbar-thumb { background: var(--border-gold); border-radius: 2px; }
+
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; color: var(--text); }
+input:focus, textarea:focus, select:focus { outline: none; }
+select option { background: var(--bg-2); color: var(--text); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in { animation: fadeIn 0.25s ease forwards; }

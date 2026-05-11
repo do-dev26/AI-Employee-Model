@@ -158,7 +158,7 @@ export async function getTasks(filters: {
   return tasks
 }
 
-import { FieldValue, serverTimestamp } from 'firebase/firestore'
+
 
 type TaskUpdate = Partial<Task> & {
   updatedAt?: FieldValue
@@ -241,10 +241,15 @@ export async function getDeals(stageFilter?: DealStage | ''): Promise<Deal[]> {
 }
 
 export async function updateDeal(id: string, data: Partial<Deal>): Promise<void> {
-  const updates: Partial<Deal> & { updatedAt: ReturnType<typeof serverTimestamp>, closedAt?: ReturnType<typeof serverTimestamp> } = { ...data, updatedAt: serverTimestamp() }
+  const updates: any = {
+    ...data,
+    updatedAt: serverTimestamp(),
+  }
+
   if (data.stage === 'closed_won' || data.stage === 'closed_lost') {
     updates.closedAt = serverTimestamp()
   }
+
   await updateDoc(doc(db, 'deals', id), updates)
 }
 

@@ -158,14 +158,24 @@ export async function getTasks(filters: {
   return tasks
 }
 
-export async function updateTask(id: string, data: Partial<Task>): Promise<void> {
-  const updates: Partial<Task> & { updatedAt: ReturnType<typeof serverTimestamp>, completedAt?: ReturnType<typeof serverTimestamp> } = { ...data, updatedAt: serverTimestamp() }
-  if (data.status === 'done') updates.completedAt = serverTimestamp()
-  await updateDoc(doc(db, 'tasks', id), updates)
+import { FieldValue, serverTimestamp } from 'firebase/firestore'
+
+type TaskUpdate = Partial<Task> & {
+  updatedAt?: FieldValue
+  completedAt?: FieldValue
 }
 
-export async function deleteTask(id: string): Promise<void> {
-  await deleteDoc(doc(db, 'tasks', id))
+export async function updateTask(id: string, data: Partial<Task>): Promise<void> {
+  const updates: TaskUpdate = {
+    ...data,
+    updatedAt: serverTimestamp(),
+  }
+
+  if (data.status === 'done') {
+    updates.completedAt = serverTimestamp()
+  }
+
+  await updateDoc(doc(db, 'tasks', id), updates)
 }
 
 // ════════════════════════════════════════════════════════════════

@@ -6,8 +6,11 @@ import { initializeApp, getApps } from 'firebase/app'
 import {
   getFirestore, collection, doc, addDoc, getDoc, getDocs,
   updateDoc, deleteDoc, query, where, orderBy, limit,
-  serverTimestamp, Timestamp, DocumentData, QueryConstraint
+  serverTimestamp, Timestamp, FieldValue, DocumentData, QueryConstraint
 } from 'firebase/firestore'
+
+// Helper type: fields that are Timestamp when read, FieldValue when written
+type TSField = Timestamp | FieldValue
 
 // ── Firebase init ──────────────────────────────────────────────
 const firebaseConfig = {
@@ -40,9 +43,9 @@ export interface Task {
   dueDate?: string         // ISO date string YYYY-MM-DD
   category: TaskCategory
   aiNotes?: string
-  createdAt?: Timestamp
-  updatedAt?: Timestamp
-  completedAt?: Timestamp
+  createdAt?: TSField
+  updatedAt?: TSField
+  completedAt?: TSField
 }
 
 export interface Client {
